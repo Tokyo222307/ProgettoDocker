@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="app.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Quiz Informatica</title>
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <div class="quiz">
+            <h2>Quiz Informatica</h2>
+            <p id="domanda"><b>Domanda:</b></p>
+            <form id="form">
+                <label>
+                    <input type="radio" name="risposta" value="0">
+                    <span id="r0"></span>
+                </label><br>
+                <label>
+                    <input type="radio" name="risposta" value="1">
+                    <span id="r1"></span>
+                </label><br>
+                <label>
+                    <input type="radio" name="risposta" value="2">
+                    <span id="r2"></span>
+                </label><br>
+                <label>
+                    <input type="radio" name="risposta" value="3">
+                    <span id="r3"></span>
+                </label><br><br>
+                <button type="submit">Invia risposta</button>
+            </form>
+            <hr>
+            <p id="punteggio">Punteggio: 0</p>
+            <p id="tempo">Tempo: 10 sec</p>
+        </div>
+    </body>
+</html>
