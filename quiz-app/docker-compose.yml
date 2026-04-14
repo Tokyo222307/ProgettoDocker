@@ -1,6 +1,14 @@
 version: "3.8"
 
 services:
+  nginx:
+    image: nginx:latest
+    container_name: quiz
+    ports:
+      - "8081:80"
+    volumes:
+      - ./website:/usr/share/nginx/html
+    restart: always
   mysql:
     image: mysql:8.0
     container_name: quiz-mysql
@@ -11,11 +19,10 @@ services:
       MYSQL_DATABASE: quizinformatico
 
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
 volumes:
   mysql_data:

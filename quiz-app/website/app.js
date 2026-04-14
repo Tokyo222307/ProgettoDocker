@@ -63,7 +63,7 @@ window.onload = async function () {
         e.preventDefault();
         let scelta = -1;
         radio.forEach((r, i) => {
-            if (r.checked) scelta = i + 1; // DB parte da 1
+            if (r.checked) scelta = i + 1;
         });
         if (scelta === domande[current].soluzione) {
             punteggio++;
