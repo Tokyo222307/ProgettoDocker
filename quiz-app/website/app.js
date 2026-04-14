@@ -2,6 +2,12 @@ function startButton(){
     window.location.href="accesso.html";
 }
 function cominciaDomande(){
+    const nome=document.getElementById("nome").value.trim();
+    if(!nome){
+        alert("Inserisci il tuo nome prima di continuare!");
+        return;
+    }
+    localStorage.setItem("nomeUtente", nome);
     window.location.href="quiz.html";
 }
 function visualizzaClassifica(){
@@ -27,7 +33,7 @@ window.onload = async function () {
     const r2 = document.getElementById("r2");
     const r3 = document.getElementById("r3");
     async function caricaDomande() {
-        const res = await fetch("http://localhost:8080/domande");
+        const res = await fetch("http://localhost:8080/domande.php");
         domande = await res.json();
         mostraDomanda();
     }
@@ -45,27 +51,27 @@ window.onload = async function () {
         radio.forEach(r => r.checked = false);
         startTimer();
     }
-    function startTimer() {
-        tempo = 10;
-        tempoEl.textContent = "Tempo: " + tempo + " sec";
+    function startTimer(){
+        tempo=10;
+        tempoEl.textContent="Tempo: "+tempo+" sec";
         clearInterval(timer);
-        timer = setInterval(() => {
+        timer=setInterval(()=>{
             tempo--;
-            tempoEl.textContent = "Tempo: " + tempo + " sec";
-            if (tempo <= 0) {
+            tempoEl.textContent="Tempo: "+tempo+" sec";
+            if (tempo<=0){
                 clearInterval(timer);
                 current++;
                 mostraDomanda();
             }
         }, 1000);
     }
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit",function(e){
         e.preventDefault();
-        let scelta = -1;
-        radio.forEach((r, i) => {
-            if (r.checked) scelta = i + 1;
+        let scelta=-1;
+        radio.forEach((r,i)=>{
+            if (r.checked) scelta= i+1;
         });
-        if (scelta === domande[current].soluzione) {
+        if (scelta===domande[current].soluzione) {
             punteggio++;
         }
         punteggioEl.textContent = "Punteggio: " + punteggio;
@@ -84,7 +90,7 @@ window.onload = async function () {
         `;
         document.getElementById("salva").addEventListener("click", async () => {
             const nome = document.getElementById("nome").value;
-            await fetch("http://localhost:8080/classifica", {
+            await fetch("http://localhost:8080/classifica.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

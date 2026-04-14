@@ -1,6 +1,16 @@
 version: "3.8"
 
 services:
+  php:
+      build: ./php
+      container_name: quiz-backend
+      ports:
+        - "8080:80"
+      volumes:
+        - ./php:/var/www/html
+      depends_on:
+        - mysql
+      restart: always
   nginx:
     image: nginx:latest
     container_name: quiz
