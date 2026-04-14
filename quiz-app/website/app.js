@@ -58,10 +58,9 @@ window.onload = async function () {
         timer=setInterval(()=>{
             tempo--;
             tempoEl.textContent="Tempo: "+tempo+" sec";
-            if (tempo<=0){
+            if (tempo <= 0) {
                 clearInterval(timer);
-                current++;
-                mostraDomanda();
+                form.dispatchEvent(new Event("submit"));
             }
         }, 1000);
     }
