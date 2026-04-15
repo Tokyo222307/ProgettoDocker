@@ -4,13 +4,11 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Gestione preflight (CORS)
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
     exit;
 }
 
-// Accetta SOLO POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
     echo json_encode(["errore" => "Metodo non consentito"]);
@@ -29,10 +27,8 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Leggi JSON dal body
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Controllo dati
 if (!isset($data["nome"]) || !isset($data["punteggio"])) {
     http_response_code(400);
     echo json_encode(["errore" => "Dati mancanti"]);
@@ -42,14 +38,12 @@ if (!isset($data["nome"]) || !isset($data["punteggio"])) {
 $nome = trim($data["nome"]);
 $punteggio = (int)$data["punteggio"];
 
-// Validazione base
 if ($nome === "") {
     http_response_code(400);
     echo json_encode(["errore" => "Nome vuoto"]);
     exit;
 }
 
-// Query sicura
 $stmt = $conn->prepare("INSERT INTO classifica (nome, punteggio) VALUES (?, ?)");
 
 if (!$stmt) {
@@ -66,7 +60,6 @@ if (!$stmt->execute()) {
     exit;
 }
 
-// Risposta OK
 echo json_encode([
     "ok" => true,
     "nome" => $nome,
