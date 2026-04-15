@@ -41,7 +41,7 @@ CREATE TABLE `classifica` (
 
 CREATE TABLE `domande` (
   `id` int(11) NOT NULL,
-  `domande` varchar(256) NOT NULL,
+  `domanda` varchar(256) NOT NULL,
   `risposta1` varchar(256) NOT NULL,
   `risposta2` varchar(256) NOT NULL,
   `risposta3` varchar(256) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `domande` (
 -- Dump dei dati per la tabella `domande`
 --
 
-INSERT INTO `domande` (`id`, `domande`, `risposta1`, `risposta2`, `risposta3`, `risposta4`, `soluzione`) VALUES
+INSERT INTO `domande` (`id`, `domanda`, `risposta1`, `risposta2`, `risposta3`, `risposta4`, `soluzione`) VALUES
 (1, 'Quale componente del computer elabora le informazioni?', 'RAM', 'CPU', 'Disco Fisso', 'Scheda Video', 2),
 (2, 'Cosa significa l\'acronimo HTML?', 'HyperText Markup Language', 'HyperTabular Markup Language', 'HighText Machine Language', 'HyperText Management Language', 1),
 (3, 'Quale di questi è un dispositivo di memoria temporanea?', 'Penna USB', 'SSD', 'Hard Disk', 'RAM', 4),
