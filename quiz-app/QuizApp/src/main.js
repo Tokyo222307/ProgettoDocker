@@ -1,32 +1,30 @@
-function startButton() {
-    window.location.href = "accesso.html";
+function startButton(){
+    window.location.href="accesso.html";
 }
 
 function cominciaDomande(){
     const nome=document.getElementById("nome").value.trim();
-
-    if (!nome) {
+    if(!nome){
         alert("Inserisci il tuo nome prima di continuare!");
         return;
     }
-
     localStorage.setItem("nomeUtente", nome);
-    window.location.href = "quiz.html";
+    window.location.href="quiz.html";
 }
 
-function visualizzaClassifica() {
-    window.location.href = "classifica.html";
+function visualizzaClassifica(){
+    window.location.href="classifica.html";
 }
 
-function ritornaHome() {
-    window.location.href = "index.html";
+function ritornaHome(){
+    window.location.href="index.html";
 }
 
-window.onload = async function (){
-    let domande = [];
-    let current = 0;
-    let punteggio = 0;
-    let tempo = 10;
+window.onload=async function (){
+    let domande=[];
+    let current=0;
+    let punteggio=0;
+    let tempo=10;
     let timer;
 
     const domandaEl=document.getElementById("domanda");
@@ -38,33 +36,27 @@ window.onload = async function (){
     const r1=document.getElementById("r1");
     const r2=document.getElementById("r2");
     const r3=document.getElementById("r3");
-    const user=localStorage.getItem("nomeUtente");
 
-    if(!user){
-        alert("Utente non trovato!");
-        window.location.href="accesso.html";
-    }
-
-    async function caricaDomande() {
-        try {
-            const res = await fetch("http://localhost:8080/domande.php");
-            const text = await res.text();
-            try {
-                domande = JSON.parse(text);
-            } catch (e) {
+    async function caricaDomande(){
+        try{
+            const res= await fetch("http://localhost/domande.php");
+            const text= await res.text();
+            try{
+                domande=JSON.parse(text);
+            }catch (e){
                 console.error("Risposta NON JSON:",text);
                 alert("Errore: il backend non restituisce JSON");
                 return;
             }
             mostraDomanda();
-        } catch (err) {
+        }catch(err){
             console.error("Errore fetch:", err);
         }
     }
 
     function mostraDomanda(){
-        if (!domande||domande.length===0) return;
-        if (current >= domande.length) {
+        if(!domande||domande.length===0)return;
+        if(current>=domande.length){
             fineQuiz();
             return;
         }
@@ -74,7 +66,7 @@ window.onload = async function (){
         r1.textContent=d.risposta2;
         r2.textContent=d.risposta3;
         r3.textContent=d.risposta4;
-        radio.forEach(r => r.checked = false);
+        radio.forEach(r=>r.checked=false);
         startTimer();
     }
 
@@ -109,21 +101,19 @@ window.onload = async function (){
 
     async function fineQuiz(){
         clearInterval(timer);
-
-        document.body.innerHTML = `
+        document.body.innerHTML=`
             <h1>Fine quiz!</h1>
             <h2>Punteggio: ${punteggio}</h2>
             <button id="fine" onclick="visualizzaClassifica()">Vai alla classifica</button>
         `;
-
         document.getElementById("fine").addEventListener("click",async()=>{
-            await fetch("http://localhost:8080/classifica.php", {
+            await fetch("http://localhost/classifica.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    nome: user,
+                    nome: localStorage.getItem("nomeUtente") || "Sconosciuto",
                     punteggio: punteggio
                 })
             });
