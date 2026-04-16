@@ -2,8 +2,8 @@ function startButton() {
     window.location.href = "accesso.html";
 }
 
-function cominciaDomande() {
-    const nome = document.getElementById("nome").value.trim();
+function cominciaDomande(){
+    const nome=document.getElementById("nome").value.trim();
 
     if (!nome) {
         alert("Inserisci il tuo nome prima di continuare!");
@@ -38,7 +38,12 @@ window.onload = async function (){
     const r1=document.getElementById("r1");
     const r2=document.getElementById("r2");
     const r3=document.getElementById("r3");
-    const nome = document.getElementById("nome").value.trim();
+    const user=localStorage.getItem("nomeUtente");
+
+    if(!user){
+        alert("Utente non trovato!");
+        window.location.href="accesso.html";
+    }
 
     async function caricaDomande() {
         try {
@@ -47,18 +52,18 @@ window.onload = async function (){
             try {
                 domande = JSON.parse(text);
             } catch (e) {
-                console.error("❌ Risposta NON JSON:", text);
+                console.error("Risposta NON JSON:",text);
                 alert("Errore: il backend non restituisce JSON");
                 return;
             }
             mostraDomanda();
         } catch (err) {
-            console.error("❌ Errore fetch:", err);
+            console.error("Errore fetch:", err);
         }
     }
 
-    function mostraDomanda() {
-        if (!domande || domande.length === 0) return;
+    function mostraDomanda(){
+        if (!domande||domande.length===0) return;
         if (current >= domande.length) {
             fineQuiz();
             return;
@@ -102,7 +107,7 @@ window.onload = async function (){
         mostraDomanda();
     });
 
-    async function fineQuiz() {
+    async function fineQuiz(){
         clearInterval(timer);
 
         document.body.innerHTML = `
@@ -118,7 +123,7 @@ window.onload = async function (){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    nome: nome,
+                    nome: user,
                     punteggio: punteggio
                 })
             });
