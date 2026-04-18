@@ -9,7 +9,7 @@ function cominciaDomande(){
         return;
     }
     localStorage.setItem("nomeUtente", nome);
-    window.location.href="quiz.html";
+    window.location.href = "quiz.html";
 }
 
 function visualizzaClassifica(){
@@ -20,7 +20,7 @@ function ritornaHome(){
     window.location.href="index.html";
 }
 
-window.onload=async function (){
+window.onload = async function (){
     let domande=[];
     let current=0;
     let punteggio=0;
@@ -37,36 +37,36 @@ window.onload=async function (){
     const r2=document.getElementById("r2");
     const r3=document.getElementById("r3");
 
-    async function caricaDomande(){
-        try{
-            const res= await fetch("http://localhost/domande.php");
-            const text= await res.text();
-            try{
-                domande=JSON.parse(text);
-            }catch (e){
-                console.error("Risposta NON JSON:",text);
+    async function caricaDomande() {
+        try {
+            const res = await fetch("http://localhost:8080/domande.php");
+            const text = await res.text();
+            try {
+                domande = JSON.parse(text);
+            } catch (e) {
+                console.error("❌ Risposta NON JSON:", text);
                 alert("Errore: il backend non restituisce JSON");
                 return;
             }
             mostraDomanda();
-        }catch(err){
-            console.error("Errore fetch:", err);
+        } catch (err) {
+            console.error("❌ Errore fetch:", err);
         }
     }
 
-    function mostraDomanda(){
-        if(!domande||domande.length===0)return;
-        if(current>=domande.length){
+    function mostraDomanda() {
+        if (!domande || domande.length === 0) return;
+        if (current >= domande.length) {
             fineQuiz();
             return;
         }
         const d=domande[current];
-        domandaEl.innerHTML="<b>Domanda:</b> "+d.domande;
+        domandaEl.innerHTML="<b>Domanda:</b> "+d.domanda;
         r0.textContent=d.risposta1;
         r1.textContent=d.risposta2;
         r2.textContent=d.risposta3;
         r3.textContent=d.risposta4;
-        radio.forEach(r=>r.checked=false);
+        radio.forEach(r => r.checked = false);
         startTimer();
     }
 
@@ -99,29 +99,29 @@ window.onload=async function (){
         mostraDomanda();
     });
 
-    async function fineQuiz(){
+    async function fineQuiz() {
         clearInterval(timer);
-        document.body.innerHTML=`
+        document.body.innerHTML = `
             <h1>Fine quiz!</h1>
             <h2>Punteggio: ${punteggio}</h2>
-            <button id="fine" onclick="visualizzaClassifica()">Vai alla classifica</button>
+            <button id="fine">Vai alla classifica</button>
         `;
-        document.getElementById("fine").addEventListener("click",async()=>{
-            await fetch("http://localhost/classifica.php", {
+        const btn=document.getElementById("fine");
+        btn.addEventListener("click",async()=>{
+            const nome=localStorage.getItem("nomeUtente");
+            await fetch("http://localhost:8080/classifica.php",{
                 method: "POST",
-                headers: {
+                headers:{
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    nome: localStorage.getItem("nomeUtente") || "Sconosciuto",
+                    nome: nome,
                     punteggio: punteggio
                 })
             });
-
             alert("Punteggio salvato!");
             visualizzaClassifica();
         });
     }
-
     caricaDomande();
 };

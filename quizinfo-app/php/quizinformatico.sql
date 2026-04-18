@@ -1,9 +1,10 @@
+USE quizinformatico;
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 13, 2026 alle 11:11
+-- Creato il: Apr 18, 2026 alle 08:29
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 

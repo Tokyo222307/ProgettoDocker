@@ -27,12 +27,13 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: quizinformatico
-
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
       - "3307:3306"
 
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./php/quizinformatico.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
   mysql_data:
