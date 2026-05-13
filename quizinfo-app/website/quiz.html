@@ -1,38 +1,62 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <script src="app.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Quiz Informatica</title>
-        <meta name="viewport" content="width=device-width">
-    </head>
-    <body>
-        <div class="quiz">
-            <h2>Quiz Informatica</h2>
-            <p id="domanda"><b>Domanda:</b></p>
-            <form id="form">
-                <label>
-                    <input type="radio" name="risposta" value="0">
-                    <span id="r0"></span>
-                </label><br>
-                <label>
-                    <input type="radio" name="risposta" value="1">
-                    <span id="r1"></span>
-                </label><br>
-                <label>
-                    <input type="radio" name="risposta" value="2">
-                    <span id="r2"></span>
-                </label><br>
-                <label>
-                    <input type="radio" name="risposta" value="3">
-                    <span id="r3"></span>
-                </label><br><br>
-                <button type="submit">Invia risposta</button>
-            </form>
-            <hr>
-            <p id="punteggio">Punteggio: 0</p>
-            <p id="tempo">Tempo: 10 sec</p>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz Informatico</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="card">
+
+        <!-- Header: progress + score -->
+        <div class="quiz-header">
+            <span class="progress-info">Domanda <span id="progress">1 / 10</span></span>
+            <span class="score-badge">⚡ <span id="punteggio">0</span></span>
         </div>
-    </body>
+
+        <!-- Timer -->
+        <div class="timer-wrap">
+            <div class="timer-top">
+                <span>Tempo rimasto</span>
+                <span id="tempo">15</span>
+            </div>
+            <div class="timer-track">
+                <div class="timer-fill" id="timerBar" style="width:100%"></div>
+            </div>
+        </div>
+
+        <!-- Question -->
+        <div class="question-box" id="domanda">Caricamento domanda…</div>
+
+        <!-- Options -->
+        <form id="form">
+            <div class="options">
+                <label class="option-label">
+                    <input type="radio" name="risposta" value="1">
+                    <div class="option-key">A</div>
+                    <span class="option-text" id="r0"></span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="risposta" value="2">
+                    <div class="option-key">B</div>
+                    <span class="option-text" id="r1"></span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="risposta" value="3">
+                    <div class="option-key">C</div>
+                    <span class="option-text" id="r2"></span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="risposta" value="4">
+                    <div class="option-key">D</div>
+                    <span class="option-text" id="r3"></span>
+                </label>
+            </div>
+            <button type="submit" id="submitBtn">Conferma risposta</button>
+        </form>
+
+    </div>
+</body>
 </html>

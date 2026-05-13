@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 $host = "mysql";
-$user = "root";
-$password = "root";
+$user = "user";
+$password = "password";
 $database = "quizinformatico";
 $conn = new mysqli($host, $user, $password, $database);
 

@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: http://localhost:8081");
 header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
@@ -21,7 +21,7 @@ if ($conn->connect_error) {
     exit;
 }
 
-$sql = "SELECT id, domanda, risposta1, risposta2, risposta3, risposta4, soluzione FROM domande ORDER BY RAND() LIMIT 10";
+$sql = "SELECT nome, punteggio FROM classifica ORDER BY punteggio DESC LIMIT 100";
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -30,18 +30,13 @@ if (!$result) {
     exit;
 }
 
-$domande = [];
+$classifica = [];
 while ($row = $result->fetch_assoc()) {
-    $domande[] = [
-        "id" => (int)$row["id"],
-        "domanda" => $row["domanda"],
-        "risposta1" => $row["risposta1"],
-        "risposta2" => $row["risposta2"],
-        "risposta3" => $row["risposta3"],
-        "risposta4" => $row["risposta4"],
-        "soluzione" => (int)$row["soluzione"]
+    $classifica[] = [
+        "nome" => $row["nome"],
+        "punteggio" => (int)$row["punteggio"]
     ];
 }
 
-echo json_encode($domande, JSON_UNESCAPED_UNICODE);
+echo json_encode($classifica, JSON_UNESCAPED_UNICODE);
 $conn->close();

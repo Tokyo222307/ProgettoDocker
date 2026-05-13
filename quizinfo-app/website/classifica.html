@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <script src="app.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Quiz informatico</title>
-        <meta name="viewport" content="width=device-width">
-    </head>
-    <body>
-        <div class="start">
-            <h1>Benvenuto su Quiz informatico!</h1>
-            <table border="1">
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz Informatico — Classifica</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="card">
+        <div class="badge">Leaderboard</div>
+        <h1>Classifica 🏆</h1>
+
+        <table class="leaderboard-table">
+            <thead>
                 <tr>
-                    <th>Posizione</th>
-                    <th>Nome</th>
-                    <th>Punteggio</th>
+                    <th>#</th>
+                    <th>Giocatore</th>
+                    <th>Punti</th>
                 </tr>
-            </table>
-            <button onclick="ritornaHome()">Ritorna alla home</button>
-        </div>
-    </body>
+            </thead>
+            <tbody id="classificaBody">
+                <tr><td colspan="3"><div id="loadingMsg">Caricamento…</div></td></tr>
+            </tbody>
+        </table>
+
+        <button class="btn-secondary" onclick="ritornaHome()">← Torna alla home</button>
+    </div>
+</body>
 </html>
